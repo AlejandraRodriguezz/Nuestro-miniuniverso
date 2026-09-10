@@ -57,6 +57,16 @@
         + Subir una foto
         <input type="file" id="input-foto" accept="image/*" hidden>
       </label>
+
+      <div class="panel-subida" id="panel-subida" hidden>
+        <img id="preview-subida" alt="Vista previa">
+        <input type="text" id="texto-subida" placeholder="Escribe algo (opcional)">
+        <div class="panel-subida-botones">
+          <button type="button" id="cancelar-subida">Cancelar</button>
+          <button type="button" id="confirmar-subida">Subir foto</button>
+        </div>
+      </div>
+
       <p class="subiendo-nota" id="subiendo-nota" hidden>Subiendo...</p>
       <div class="galeria" id="galeria"></div>
     </section>
