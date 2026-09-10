@@ -215,7 +215,7 @@ document.getElementById("lightbox").addEventListener("click", (e) => {
   if (e.target.id === "lightbox") cerrarLightbox();
 });
 
-// Subir una foto nueva a Cloudinary y guardar su link en Firebase
+// Subir una foto nueva a Cloudinary y guardar su link  en Firebase
 let archivoSeleccionado = null;
 
 document.getElementById("input-foto").addEventListener("change", (e) => {
