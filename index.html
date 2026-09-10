@@ -53,6 +53,11 @@
     <section class="seccion-album" aria-label="Álbum de fotos">
       <h2>Nuestro álbum</h2>
       <p class="explicacion">Los momentos que vamos guardando por el camino.</p>
+      <label class="boton-subir" for="input-foto">
+        + Subir una foto
+        <input type="file" id="input-foto" accept="image/*" hidden>
+      </label>
+      <p class="subiendo-nota" id="subiendo-nota" hidden>Subiendo...</p>
       <div class="galeria" id="galeria"></div>
     </section>
 
@@ -71,9 +76,9 @@
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
   <script src="firebase-config.js"></script>
+  <script src="cloudinary-config.js"></script>
   <script src="config.js"></script>
   <script src="canciones.js"></script>
-  <script src="fotos.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
