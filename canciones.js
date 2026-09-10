@@ -1,6 +1,6 @@
 const CANCIONES = {
-"2026-09-11": { id: "6MW4akyMVOfnhDbwoYJI4D?si=e01ff0ad09724fe9", nota: "Este fuer nuestro comienzo y realmente siento que nuestro amor es unico"},
-  "2026-09-10": { id: "3AJwUDP919kvQ9QcozQPxg", nota: "Para empezar el reto ❤️" },
+"2026-09-01": { id: "6MW4akyMVOfnhDbwoYJI4D?si=e01ff0ad09724fe9", nota: "Este fuer nuestro comienzo y realmente siento que nuestro amor es unico"},
+  "2026-09-10": { id: "3AJwUDP919kvQ9QcozQPxg", nota: "porque yo quiero amarla en todos los idiomas" },
   "2026-09-11": { id: "4ou86Vd0SOT7GO4m6V6IAs?si=f6d503f8df724ece", nota: "Hola!!!! mi amor hermosa te amo demasiado prometo estar siempre ahi porque solo quiero que sea usted te amo" }
 
   // Copia y pega la línea de abajo para agregar el siguiente día
