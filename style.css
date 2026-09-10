@@ -289,6 +289,27 @@ section h2 {
 /* Álbum de fotos */
 .seccion-album { margin-bottom: 40px; }
 
+.boton-subir {
+  display: inline-block;
+  background: var(--rose-deep);
+  color: #fff0f2;
+  padding: 10px 18px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 14px;
+}
+
+.boton-subir:hover { background: #911f3d; }
+
+.subiendo-nota {
+  color: var(--text-muted);
+  font-style: italic;
+  font-size: 0.85rem;
+  margin: 0 0 14px;
+}
+
 .galeria {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
