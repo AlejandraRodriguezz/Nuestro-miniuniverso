@@ -216,17 +216,36 @@ document.getElementById("lightbox").addEventListener("click", (e) => {
 });
 
 // Subir una foto nueva a Cloudinary y guardar su link en Firebase
-document.getElementById("input-foto").addEventListener("change", async (e) => {
+let archivoSeleccionado = null;
+
+document.getElementById("input-foto").addEventListener("change", (e) => {
   const archivo = e.target.files[0];
   if (!archivo) return;
+  archivoSeleccionado = archivo;
 
+  document.getElementById("preview-subida").src = URL.createObjectURL(archivo);
+  document.getElementById("texto-subida").value = "";
+  document.getElementById("panel-subida").hidden = false;
+});
+
+document.getElementById("cancelar-subida").addEventListener("click", () => {
+  archivoSeleccionado = null;
+  document.getElementById("input-foto").value = "";
+  document.getElementById("panel-subida").hidden = true;
+});
+
+document.getElementById("confirmar-subida").addEventListener("click", async () => {
+  if (!archivoSeleccionado) return;
+  const texto = document.getElementById("texto-subida").value.trim();
+
+  document.getElementById("panel-subida").hidden = true;
   const notaEl = document.getElementById("subiendo-nota");
   notaEl.hidden = false;
   notaEl.textContent = "Subiendo...";
 
   try {
     const datos = new FormData();
-    datos.append("file", archivo);
+    datos.append("file", archivoSeleccionado);
     datos.append("upload_preset", CLOUDINARY_CONFIG.uploadPreset);
 
     const resp = await fetch(
@@ -235,9 +254,9 @@ document.getElementById("input-foto").addEventListener("change", async (e) => {
     );
     const resultado = await resp.json();
 
-    if (!resultado.secure_url) throw new Error("Cloudinary no devolvió la foto");
-
-    const texto = prompt("¿Quieres ponerle un texto a la foto? (opcional)") || "";
+    if (!resultado.secure_url) {
+      throw new Error((resultado.error && resultado.error.message) || "Cloudinary no devolvió la foto");
+    }
 
     await fotosCollection.add({
       url: resultado.secure_url,
@@ -248,8 +267,9 @@ document.getElementById("input-foto").addEventListener("change", async (e) => {
     notaEl.hidden = true;
   } catch (err) {
     console.error("Error subiendo la foto:", err);
-    notaEl.textContent = "No se pudo subir la foto. Revisa cloudinary-config.js";
+    notaEl.textContent = "No se pudo subir: " + err.message;
   }
 
-  e.target.value = "";
+  archivoSeleccionado = null;
+  document.getElementById("input-foto").value = "";
 });
