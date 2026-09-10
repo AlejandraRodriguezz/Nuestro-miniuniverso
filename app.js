@@ -166,18 +166,33 @@ cargarCancion(fechaSeleccionada);
 renderArchivo();
 
 // ============================================================
-// ÁLBUM DE FOTOS
+// ÁLBUM DE FOTOS (se suben desde la página, sincronizadas
+// entre los dos celulares a través de Firebase)
 // ============================================================
 
-function renderGaleria() {
+const fotosCollection = db.collection("fotos");
+
+fotosCollection.orderBy("creado", "desc").onSnapshot(
+  (snap) => {
+    const fotos = [];
+    snap.forEach((doc) => fotos.push(doc.data()));
+    renderGaleria(fotos);
+  },
+  (err) => {
+    console.error("No se pudieron cargar las fotos.", err);
+  }
+);
+
+function renderGaleria(fotos) {
   const cont = document.getElementById("galeria");
-  if (!FOTOS.length) {
-    cont.innerHTML = '<p class="mensaje-vacio">Todavía no hay fotos. Súbelas a la carpeta "fotos" y agrégalas en fotos.js.</p>';
+  cont.innerHTML = "";
+  if (!fotos.length) {
+    cont.innerHTML = '<p class="mensaje-vacio">Todavía no hay fotos. Toca "+ Subir una foto" para agregar la primera.</p>';
     return;
   }
-  FOTOS.forEach((foto) => {
+  fotos.forEach((foto) => {
     const img = document.createElement("img");
-    img.src = foto.archivo;
+    img.src = foto.url;
     img.alt = foto.texto || "Foto nuestra";
     img.loading = "lazy";
     img.addEventListener("click", () => abrirLightbox(foto));
@@ -186,7 +201,7 @@ function renderGaleria() {
 }
 
 function abrirLightbox(foto) {
-  document.getElementById("lightbox-img").src = foto.archivo;
+  document.getElementById("lightbox-img").src = foto.url;
   document.getElementById("lightbox-texto").textContent = foto.texto || "";
   document.getElementById("lightbox").hidden = false;
 }
@@ -200,4 +215,41 @@ document.getElementById("lightbox").addEventListener("click", (e) => {
   if (e.target.id === "lightbox") cerrarLightbox();
 });
 
-renderGaleria();
+// Subir una foto nueva a Cloudinary y guardar su link en Firebase
+document.getElementById("input-foto").addEventListener("change", async (e) => {
+  const archivo = e.target.files[0];
+  if (!archivo) return;
+
+  const notaEl = document.getElementById("subiendo-nota");
+  notaEl.hidden = false;
+  notaEl.textContent = "Subiendo...";
+
+  try {
+    const datos = new FormData();
+    datos.append("file", archivo);
+    datos.append("upload_preset", CLOUDINARY_CONFIG.uploadPreset);
+
+    const resp = await fetch(
+      `https://api.cloudinary.com/v1_1/${CLOUDINARY_CONFIG.cloudName}/image/upload`,
+      { method: "POST", body: datos }
+    );
+    const resultado = await resp.json();
+
+    if (!resultado.secure_url) throw new Error("Cloudinary no devolvió la foto");
+
+    const texto = prompt("¿Quieres ponerle un texto a la foto? (opcional)") || "";
+
+    await fotosCollection.add({
+      url: resultado.secure_url,
+      texto,
+      creado: firebase.firestore.FieldValue.serverTimestamp(),
+    });
+
+    notaEl.hidden = true;
+  } catch (err) {
+    console.error("Error subiendo la foto:", err);
+    notaEl.textContent = "No se pudo subir la foto. Revisa cloudinary-config.js";
+  }
+
+  e.target.value = "";
+});
