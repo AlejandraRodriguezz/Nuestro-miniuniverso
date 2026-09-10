@@ -1,6 +1,3 @@
-  // Copia y pega la línea de abajo para agregar el siguiente día
-  // (no olvides la coma al final de la línea anterior):
-  // ,"2026-09-11": { id: "TRACK_ID_AQUI", nota: "" }
 
 const CANCIONES = {
 "2026-09-01": { id: "6MW4akyMVOfnhDbwoYJI4D", nota: "Este fuer nuestro comienzo y realmente siento que nuestro amor es unico"},
