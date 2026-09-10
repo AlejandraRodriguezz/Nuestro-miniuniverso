@@ -1,4 +1,4 @@
-# Nuestro reto — ahorro + canción del día
+[README.md](https://github.com/user-attachments/files/32078040/README.md)# Nuestro reto — ahorro + canción del día
 
 Página simple para llevar juntos un reto de ahorro (empieza en $1.000.000, pero puedes seguir agregando días cuando quieras) y para que ella pueda ver la canción que le dedicas cada día, con acceso a las anteriores.
 
@@ -24,7 +24,7 @@ Como van a marcar los días cada uno desde su celular, necesitan una basecita de
    rules_version = '2';
    service cloud.firestore {
      match /databases/{database}/documents {
-       match /reto/{docId} {
+       match /{document=**} {
          allow read, write: if true;
        }
      }
@@ -53,19 +53,19 @@ Con eso, cuando cualquiera de los dos marque un día en su celular, el otro lo v
 
 **Para editar sin instalar nada:** entra a tu repositorio en github.com, abre `canciones.js`, dale click al lápiz (editar) arriba a la derecha, agrega tu línea, y abajo dale "Commit changes". Un par de minutos después ya está en la página. Puedes hacerlo día a día, o dejar cargada toda la semana de una vez — las fechas futuras quedan ocultas solas hasta que llegue el día.
 
-## 4. Agregar fotos al álbum
+## 4. Activar el álbum de fotos (Cloudinary, gratis)
 
-1. En tu repositorio de GitHub, entra a la carpeta `fotos`.
-2. Dale click a **Add file → Upload files** y sube tus fotos (jpg, png o webp).
-3. Abre `fotos.js` y agrega una línea por cada foto que subiste, con el nombre exacto del archivo:
+Las fotos se suben directo desde la página, con un botón — ni tú ni ella necesitan entrar a GitHub para esto. Se guardan en Cloudinary (un servicio gratis para alojar imágenes, no pide tarjeta) y el link queda sincronizado en la misma base de Firebase del calendario, así que las fotos aparecen para los dos al instante.
 
-   ```js
-   { archivo: "fotos/playa.jpg", texto: "Nuestro primer viaje" }
-   ```
+1. Entra a [cloudinary.com](https://cloudinary.com/users/register_free) y crea una cuenta gratis (con Google, GitHub o tu correo).
+2. En el **Dashboard**, justo arriba, vas a ver tu **Cloud name**. Cópialo.
+3. Ve a **Settings** (rueda de configuración) → pestaña **Upload**. Baja hasta "Upload presets" y dale **Add upload preset**.
+4. En "Signing Mode" cambia de "Signed" a **Unsigned**, y guarda. Va a quedar con un nombre generado automáticamente (algo como `xxxxxxx`) — cópialo también.
+5. Abre `cloudinary-config.js` y reemplaza `TU_CLOUD_NAME` y `TU_UPLOAD_PRESET` con esos dos valores. Sube el archivo a GitHub.
 
-4. Guarda los cambios. Las fotos van a aparecer en la página, y al tocarlas se ven en grande.
+Con eso listo, en la página va a aparecer un botón "+ Subir una foto" — lo toca cualquiera de los dos, elige la foto desde su celular, y aparece en el álbum de los dos en segundos.
 
-Tip: si las fotos pesan mucho (varios MB cada una), la página va a cargar más lento — si puedes, comprímelas un poco antes de subirlas.
+Nota: como el preset queda "sin firmar" para que se pueda subir directo desde el navegador, técnicamente cualquiera que conociera esos dos valores podría subir algo a tu cuenta. Igual que con Firebase, el riesgo real es mínimo porque nadie más los conoce, pero es bueno que lo sepas.
 
 ## 5. Personalizar
 
@@ -81,6 +81,5 @@ Abre `config.js` para cambiar:
 - `app.js` — la lógica (no hace falta tocarlo).
 - `config.js` — datos del reto de ahorro. **Edítalo tú.**
 - `canciones.js` — la lista de canciones. **Edítalo tú, seguido.**
-- `fotos.js` — la lista de fotos del álbum. **Edítalo tú, seguido.**
-- `fotos/` — carpeta donde van los archivos de las fotos.
 - `firebase-config.js` — credenciales de tu proyecto de Firebase. **Edítalo una sola vez.**
+- `cloudinary-config.js` — credenciales de tu cuenta de Cloudinary (para las fotos). **Edítalo una sola vez.**
