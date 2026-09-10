@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nuestro reto</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="fondo-textura" aria-hidden="true"></div>
+
+  <main class="contenedor">
+
+    <header class="encabezado">
+      <p class="dia-actual" id="texto-dia">Día 1 de 60</p>
+      <h1>Ahorrando para <span id="texto-meta">nuestra meta</span></h1>
+    </header>
+
+    <section class="hero-progreso" aria-label="Progreso del ahorro">
+      <div class="cifra-grande">
+        <span id="total-ahorrado">$0</span>
+        <span class="cifra-meta">de <span id="texto-meta-total">$1.000.000</span></span>
+      </div>
+      <div class="barra">
+        <div class="barra-relleno" id="barra-relleno"></div>
+      </div>
+      <p class="barra-nota" id="dias-marcados">0 de 60 días ahorrados</p>
+    </section>
+
+    <section class="seccion-ahorro" aria-label="Calendario de ahorro">
+      <h2>El calendario</h2>
+      <p class="explicacion">Toca un día cuando ya lo hayas ahorrado. Se marca para los dos, en el momento.</p>
+      <div class="grid-tickets" id="grid-tickets"></div>
+    </section>
+
+    <section class="seccion-cancion" aria-label="Canción del día">
+      <h2>La canción de hoy</h2>
+      <div class="disco-decorativo" aria-hidden="true"></div>
+      <div class="tarjeta-cancion">
+        <div id="cancion-embed"></div>
+        <p class="nota-cancion" id="cancion-nota"></p>
+        <p class="fecha-cancion" id="cancion-fecha"></p>
+      </div>
+
+      <p class="explicacion explicacion-archivo">Las que ya te dediqué antes</p>
+      <div class="archivo-strip" id="archivo-strip"></div>
+    </section>
+
+    <section class="seccion-album" aria-label="Álbum de fotos">
+      <h2>Nuestro álbum</h2>
+      <p class="explicacion">Los momentos que vamos guardando por el camino.</p>
+      <div class="galeria" id="galeria"></div>
+    </section>
+
+    <footer class="pie">
+      <p>Página hecha por los dos, para los dos.</p>
+    </footer>
+
+  </main>
+
+  <div class="lightbox" id="lightbox" hidden>
+    <button class="lightbox-cerrar" id="lightbox-cerrar" aria-label="Cerrar">×</button>
+    <img id="lightbox-img" src="" alt="">
+    <p id="lightbox-texto"></p>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  <script src="firebase-config.js"></script>
+  <script src="config.js"></script>
+  <script src="canciones.js"></script>
+  <script src="fotos.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
