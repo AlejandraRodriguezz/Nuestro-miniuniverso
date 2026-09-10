@@ -303,6 +303,60 @@ section h2 {
 
 .boton-subir:hover { background: #911f3d; }
 
+.panel-subida {
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 12px;
+  padding: 14px;
+  margin-bottom: 14px;
+}
+
+.panel-subida img {
+  width: 100%;
+  max-height: 220px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.panel-subida input[type="text"] {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid var(--panel-border);
+  border-radius: 8px;
+  font-family: "Inter", sans-serif;
+  font-size: 0.9rem;
+  color: var(--text-dark);
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+.panel-subida-botones {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.panel-subida-botones button {
+  border: none;
+  border-radius: 20px;
+  padding: 8px 16px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: "Inter", sans-serif;
+}
+
+#cancelar-subida {
+  background: transparent;
+  color: var(--text-muted);
+}
+
+#confirmar-subida {
+  background: var(--rose-deep);
+  color: #fff0f2;
+}
+
 .subiendo-nota {
   color: var(--text-muted);
   font-style: italic;
